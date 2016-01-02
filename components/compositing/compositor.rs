@@ -644,7 +644,7 @@ impl<Window: WindowMethods> IOCompositor<Window> {
         if !self.pipeline_details.contains_key(&pipeline_id) {
             self.pipeline_details.insert(pipeline_id, PipelineDetails::new());
         }
-        return self.pipeline_details.get_mut(&pipeline_id).unwrap();
+        self.pipeline_details.get_mut(&pipeline_id).unwrap()
     }
 
     pub fn pipeline(&self, pipeline_id: PipelineId) -> Option<&CompositionPipeline> {
@@ -730,7 +730,7 @@ impl<Window: WindowMethods> IOCompositor<Window> {
             root_layer.bounds.borrow_mut().size = Size2D::from_untyped(&frame_size);
         }
 
-        return root_layer;
+        root_layer
     }
 
     fn create_pipeline_details_for_frame_tree(&mut self, frame_tree: &SendableFrameTree) {
@@ -1882,7 +1882,7 @@ impl<Window: WindowMethods> IOCompositor<Window> {
             return None;
         }
 
-        return Some(HitTestResult { layer: layer, point: point_in_parent_layer });
+        Some(HitTestResult { layer: layer, point: point_in_parent_layer })
     }
 
     fn find_topmost_layer_at_point(&self,
@@ -2001,7 +2001,7 @@ fn find_layer_with_pipeline_and_layer_id_for_layer(layer: Rc<Layer<CompositorDat
         }
     }
 
-    return None;
+    None
 }
 
 impl<Window> CompositorEventListener for IOCompositor<Window> where Window: WindowMethods {

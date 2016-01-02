@@ -47,7 +47,7 @@ impl ParseErrorReporter for StdoutErrorReporter {
     }
 
     fn pipeline(&self) -> PipelineId {
-       return PipelineId::fake_root_pipeline_id();
+       PipelineId::fake_root_pipeline_id()
      }
 }
 

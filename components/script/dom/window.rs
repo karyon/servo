@@ -323,7 +323,7 @@ impl Window {
     }
 
     pub fn css_error_reporter(&self) -> Box<ParseErrorReporter + Send> {
-        return self.error_reporter.clone();
+        self.error_reporter.clone()
     }
 }
 

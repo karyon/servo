@@ -178,7 +178,7 @@ pub trait HttpResponse: Read {
     fn status(&self) -> StatusCode;
     fn status_raw(&self) -> &RawStatus;
     fn http_version(&self) -> String {
-        return "HTTP/1.1".to_owned()
+        "HTTP/1.1".to_owned()
     }
     fn content_encoding(&self) -> Option<Encoding> {
         self.headers().get::<ContentEncoding>().and_then(|h| {

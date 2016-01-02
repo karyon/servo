@@ -166,12 +166,12 @@ impl FontHandleMethods for FontHandle {
         assert!(!self.face.is_null());
         unsafe {
             let idx = FT_Get_Char_Index(self.face, codepoint as FT_ULong);
-            return if idx != 0 as FT_UInt {
+            if idx != 0 as FT_UInt {
                 Some(idx as GlyphId)
             } else {
                 debug!("Invalid codepoint: {}", codepoint);
                 None
-            };
+            }
         }
     }
 
@@ -196,10 +196,10 @@ impl FontHandleMethods for FontHandle {
                 let advance = (*slot).metrics.horiAdvance;
                 debug!("h_advance for {} is {}", glyph, advance);
                 let advance = advance as i32;
-                return Some(fixed_to_float_ft(advance) as FractionalPixel);
+                Some(fixed_to_float_ft(advance) as FractionalPixel)
             } else {
                 debug!("Unable to load glyph {}. reason: {}", glyph, res);
-                return None;
+                None
             }
         }
     }
@@ -258,7 +258,7 @@ impl FontHandleMethods for FontHandle {
         };
 
         debug!("Font metrics (@{}px): {:?}", em_size.to_f32_px(), metrics);
-        return metrics;
+        metrics
     }
 
     fn table_for_tag(&self, tag: FontTableTag) -> Option<Box<FontTable>> {
@@ -310,6 +310,6 @@ impl<'a> FontHandle {
         // If this isn't true then we're scaling one of the axes wrong
         assert!(metrics.x_ppem == metrics.y_ppem);
 
-        return Au::from_f64_px(value * x_scale);
+        Au::from_f64_px(value * x_scale)
     }
 }

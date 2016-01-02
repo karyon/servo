@@ -354,7 +354,7 @@ impl HTMLScriptElement {
                 parser.r().suspend();
             }
         }
-        return NextParserState::Suspend;
+        NextParserState::Suspend
     }
 
     pub fn is_ready_to_be_executed(&self) -> bool {
