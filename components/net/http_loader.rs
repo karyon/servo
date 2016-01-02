@@ -295,11 +295,8 @@ impl HttpRequest for WrappedHttpRequest {
         };
 
         if let Some(ref data) = *body {
-            match request_writer.write_all(&data) {
-                Err(e) => {
-                    return Err(LoadError::Connection(url, e.description().to_owned()))
-                }
-                _ => {}
+            if let Err(e) = request_writer.write_all(&data) {
+                return Err(LoadError::Connection(url, e.description().to_owned()))
             }
         }
 

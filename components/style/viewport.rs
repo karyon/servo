@@ -308,7 +308,7 @@ impl ViewportRule {
             }
         }
 
-        while let Some((start, _)) = start_of_name!(iter) {
+        for (start, _) in start_of_name!(iter) {
             let property = ViewportRule::parse_meta_property(content,
                                                              &mut iter,
                                                              start);

@@ -512,14 +512,12 @@ impl<Window: WindowMethods> IOCompositor<Window> {
 
             (Msg::ScrollTimeout(timestamp), ShutdownState::NotShuttingDown) => {
                 debug!("scroll timeout, drawing unpainted content!");
-                match self.composition_request {
-                    CompositionRequest::CompositeOnScrollTimeout(this_timestamp) => {
-                        if timestamp == this_timestamp {
-                            self.composition_request = CompositionRequest::CompositeNow(
-                                CompositingReason::HitScrollTimeout)
-                        }
+                if let CompositionRequest::CompositeOnScrollTimeout(this_timestamp) = 
+                    self.composition_request {
+                    if timestamp == this_timestamp {
+                        self.composition_request = CompositionRequest::CompositeNow(
+                            CompositingReason::HitScrollTimeout)
                     }
-                    _ => {}
                 }
             }
 
@@ -1223,11 +1221,8 @@ impl<Window: WindowMethods> IOCompositor<Window> {
             result.layer.send_event(self, TouchEvent(TouchEventType::Up, identifier,
                                                      result.point.to_untyped()));
         }
-        match self.touch_handler.on_touch_up(identifier, point) {
-            TouchAction::Click => {
-                self.simulate_mouse_click(point);
-            }
-            _ => {}
+        if let TouchAction::Click = self.touch_handler.on_touch_up(identifier, point) {
+            self.simulate_mouse_click(point);
         }
     }
 

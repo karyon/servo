@@ -287,7 +287,7 @@ impl HTMLScriptElement {
                         }));
 
                         let (action_sender, action_receiver) = ipc::channel().unwrap();
-                        let listener = box NetworkListener {
+                        let listener = NetworkListener {
                             context: context,
                             script_chan: script_chan,
                         };
