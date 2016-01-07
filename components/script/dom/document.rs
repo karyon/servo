@@ -103,7 +103,6 @@ use std::iter::FromIterator;
 use std::ptr;
 use std::rc::Rc;
 use std::sync::Arc;
-use std::sync::mpsc::channel;
 use string_cache::{Atom, QualName};
 use style::restyle_hints::ElementSnapshot;
 use style::stylesheets::Stylesheet;
